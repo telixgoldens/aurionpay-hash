@@ -1,6 +1,7 @@
 {
   "name": "aurionpay-hsp",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "node router.js"
   },
@@ -20,6 +21,5 @@
   "main": "index.js",
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+  "license": "ISC"
 }

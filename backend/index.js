@@ -1,7 +1,6 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-
 import { createRelayerRouter } from "./relayer/router.js";
 import { createAIRouter } from "./ai/router.js";
 import { createHSPRouter } from "./hsp/router.js";
