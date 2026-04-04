@@ -131,39 +131,33 @@ function createRelayerRouter() {
         return res.status(400).json({ error: "Invalid publicSignals: must have at least 3 elements" });
       }
 
-      // Convert proof components to BigInt
-      try {
-        const a = normalizedProof.pi_a.slice(0, 2).map((x) => BigInt(x));
-        console.log("a array:", a);
+      const a = normalizedProof.pi_a.slice(0, 2).map((x) => BigInt(x));
+      console.log("a array:", a);
 
-        const b = [
-          [BigInt(normalizedProof.pi_b[0][1]), BigInt(normalizedProof.pi_b[0][0])],
-          [BigInt(normalizedProof.pi_b[1][1]), BigInt(normalizedProof.pi_b[1][0])],
-        ];
-        console.log("b array:", b);
+      const b = [
+        [BigInt(normalizedProof.pi_b[0][1]), BigInt(normalizedProof.pi_b[0][0])],
+        [BigInt(normalizedProof.pi_b[1][1]), BigInt(normalizedProof.pi_b[1][0])],
+      ];
+      console.log("b array:", b);
 
-        const c = normalizedProof.pi_c.slice(0, 2).map((x) => BigInt(x));
-        console.log("c array:", c);
+      const c = normalizedProof.pi_c.slice(0, 2).map((x) => BigInt(x));
+      console.log("c array:", c);
 
-        const ps = normalizedSignals.slice(0, 3).map((x) => BigInt(x));
-        console.log("publicSignals:", ps);
+      const ps = normalizedSignals.slice(0, 3).map((x) => BigInt(x));
+      console.log("publicSignals:", ps);
 
-        console.log("Array lengths - a:", a.length, "b:", b.length, "b[0]:", b[0].length, "c:", c.length, "ps:", ps.length);
-        console.log("Broadcasting to HashKey Chain testnet...");
-        
-        const tx = await poolContract.withdrawAndPay(
-          nullifierBytes,
-          invoiceBytes,
-          a,
-          b,
-          c,
-          ps,
-          { gasLimit: 500000 }
-        );
-      } catch (conversionError) {
-        console.error("Error converting proof components:", conversionError);
-        throw conversionError;
-      }
+      console.log("Array lengths - a:", a.length, "b:", b.length, "b[0]:", b[0].length, "c:", c.length, "ps:", ps.length);
+      console.log("Broadcasting to HashKey Chain testnet...");
+      
+      const tx = await poolContract.withdrawAndPay(
+        nullifierBytes,
+        invoiceBytes,
+        a,
+        b,
+        c,
+        ps,
+        { gasLimit: 500000 }
+      );
 
       console.log("Tx sent:", tx.hash);
 
