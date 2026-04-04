@@ -21,7 +21,7 @@ app.use("/relayer", createRelayerRouter());
 app.use("/ai", createAIRouter());
 app.use("/hsp", createHSPRouter());
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, () => {
   console.log(`AurionPay backend running on port ${PORT}`);

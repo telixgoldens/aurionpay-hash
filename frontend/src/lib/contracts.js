@@ -2,7 +2,11 @@ export const CHAIN_ID    = 133;
 export const NETWORK     = "hashkey-testnet";
 export const RPC_URL     = "https://testnet.hsk.xyz";
 export const EXPLORER    = "https://testnet-explorer.hsk.xyz";
-export const RELAYER_URL = import.meta.env.VITE_RELAYER_URL || "http://localhost:3000/relayer";
+const relayerEnvUrl = import.meta.env.VITE_RELAYER_URL || "http://localhost:3000/relayer";
+
+export const RELAYER_URL = relayerEnvUrl.endsWith("/relayer")
+  ? relayerEnvUrl.replace(/\/+$/, "")
+  : relayerEnvUrl.replace(/\/+$/, "") + "/relayer";
 
 export const ADDRESSES = {
   privacyPool:    import.meta.env.VITE_PRIVACY_POOL_ADDRESS    || "",

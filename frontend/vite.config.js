@@ -22,6 +22,9 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    rollupOptions: {}
+  },
 
   // File types to support raw imports. Never add .css, .jsx, or .js files to this.
   assetsInclude: ['**/*.svg', '**/*.csv'],
