@@ -12,34 +12,12 @@ const APP_KEY       = process.env.HSP_APP_KEY;
 const APP_SECRET    = process.env.HSP_APP_SECRET;
 const MERCHANT_NAME = process.env.HSP_MERCHANT_NAME || "AurionPay";
 
-function parseAppSecret(secret) {
-  if (!secret) {
-    throw new Error("HSP_APP_SECRET is required");
-  }
-
-  const normalized = secret.trim();
-  try {
-    const decoded = Buffer.from(normalized, "base64");
-    if (decoded.toString("base64") === normalized) {
-      return decoded;
-    }
-  } catch (_) {
-    // not valid base64, use raw secret string
-  }
-
-  return secret;
-}
-
 const TOKENS = {
   USDC: { address: "0x8FE3cB719Ee4410E236Cd6b72ab1fCDC06eF53c6", decimals: 6, network: "hashkey-testnet", chain_id: 133 },
   USDT: { address: "0x372325443233fEbaC1F6998aC750276468c83CC6", decimals: 6, network: "hashkey-testnet", chain_id: 133 },
 };
 
 function buildHmacHeaders(method, urlPath, query, body) {
-  if (!APP_KEY) {
-    throw new Error("HSP_APP_KEY is required");
-  }
-
   const timestamp = Math.floor(Date.now() / 1000).toString();
   const nonce = crypto.randomBytes(16).toString("hex");
 
@@ -49,7 +27,7 @@ function buildHmacHeaders(method, urlPath, query, body) {
 
   const message = [method.toUpperCase(), urlPath, query || "", bodyHash, timestamp, nonce].join("\n");
 
-  const signature = crypto.createHmac("sha256", parseAppSecret(APP_SECRET)).update(message).digest("hex");
+  const signature = crypto.createHmac("sha256", APP_SECRET).update(message).digest("hex");
 
   return {
     "X-App-Key": APP_KEY,
@@ -199,22 +177,13 @@ export async function createHSPOrder({
   const urlPath = "/api/v1/merchant/orders";
   const headers = buildHmacHeaders("POST", urlPath, "", body);
 
-  try {
-    const response = await axios.post(`${HSP_BASE_URL}${urlPath}`, body, { headers });
+  const response = await axios.post(`${HSP_BASE_URL}${urlPath}`, body, { headers });
 
-    if (response.data.code !== 0) {
-      throw new Error(`HSP Error ${response.data.code}: ${response.data.msg}`);
-    }
-
-    return response.data.data;
-  } catch (err) {
-    if (axios.isAxiosError(err)) {
-      const status = err.response?.status;
-      const details = err.response?.data || err.message;
-      throw new Error(`HSP request failed${status ? ` (${status})` : ""}: ${JSON.stringify(details)}`);
-    }
-    throw err;
+  if (response.data.code !== 0) {
+    throw new Error(`HSP Error ${response.data.code}: ${response.data.msg}`);
   }
+
+  return response.data.data;
 }
 
 export async function queryHSPPayment(cartMandateId) {
@@ -223,22 +192,13 @@ export async function queryHSPPayment(cartMandateId) {
 
   const headers = buildHmacHeaders("GET", urlPath, query, null);
 
-  try {
-    const response = await axios.get(`${HSP_BASE_URL}${urlPath}?${query}`, { headers });
+  const response = await axios.get(`${HSP_BASE_URL}${urlPath}?${query}`, { headers });
 
-    if (response.data.code !== 0) {
-      throw new Error(`HSP query error: ${response.data.msg}`);
-    }
-
-    return response.data.data;
-  } catch (err) {
-    if (axios.isAxiosError(err)) {
-      const status = err.response?.status;
-      const details = err.response?.data || err.message;
-      throw new Error(`HSP query failed${status ? ` (${status})` : ""}: ${JSON.stringify(details)}`);
-    }
-    throw err;
+  if (response.data.code !== 0) {
+    throw new Error(`HSP query error: ${response.data.msg}`);
   }
+
+  return response.data.data;
 }
 
 export { TOKENS };
