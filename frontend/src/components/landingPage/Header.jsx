@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import Logoimg from "../../assets/logo.png"
+import { tl } from '../../lib/landingTranslation';
 
-export function Header() {
+export function Header({ lang }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -17,10 +18,10 @@ export function Header() {
   }, []);
 
   const navLinks = [
-    { label: "Features", href: "#features" },
-    { label: "Developers", href: "#developers" },
-    { label: "Security", href: "#security" },
-    { label: "Pricing", href: "#pricing" },
+    { label: tl("nav_features", lang), href: "#features" },
+    { label: tl("nav_developers", lang), href: "#developers" },
+    { label: tl("nav_security", lang), href: "#security" },
+    { label: tl("nav_pricing", lang), href: "#pricing" },
   ];
 
   return (
@@ -55,13 +56,13 @@ export function Header() {
               href="#"
               className="px-6 py-2 text-gray-300 hover:text-white transition-colors font-medium"
             >
-              Documentation
+              {tl("nav_documentation", lang)}
             </a>
             <Link
               to="/app"
               className="px-6 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-medium hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300"
             >
-              Get Started
+              {tl("launchApp", lang)}
             </Link>
           </div>
           <button
@@ -94,14 +95,14 @@ export function Header() {
                   href="#"
                   className="block w-full px-6 py-3 text-center bg-white/5 rounded-lg font-medium hover:bg-white/10 transition-colors"
                 >
-                  Documentation
+                  {tl("nav_documentation", lang)}
                 </a>
                 <Link
                   to="/app"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="block w-full px-6 py-3 text-center bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-medium"
                 >
-                  Get Started
+                  {tl("launchApp", lang)}
                 </Link>
               </div>
             </div>

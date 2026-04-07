@@ -15,7 +15,8 @@ import {
 } from "lucide-react";
 import { useWallet } from "../../hooks/useWallet.js";
 import { formatAddress } from "../../utils/tokenUtils.js";
-import { LangToggle } from "../../lib/LanguageContext.jsx";
+import { LangToggle, useLang } from "../../lib/LanguageContext.jsx";
+import { t } from "../../lib/i18n.js";
 import Merchant from "./Merchant.jsx";
 import Customer from "./Customer.jsx";
 import Overview from "./Overview.jsx";
@@ -30,38 +31,20 @@ export {
   ERC20_ABI,
 } from "../../lib/contracts.js";
 
-const NAV = [
-  { id: "dashboard", label: "Overview", icon: LayoutDashboard, path: "/app" },
-  { id: "merchant", label: "Merchant", icon: Store, path: "/app/merchant" },
-  { id: "customer", label: "Customer", icon: Users, path: "/app/customer" },
-  { id: "ai", label: "AI Tools", icon: Brain, path: "/app/ai" },
-];
 
 export function CopyBtn({ text }) {
   const [copied, setCopied] = useState(false);
   return (
     <button
-      onClick={() => {
-        navigator.clipboard.writeText(text);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1500);
-      }}
-      style={{
-        background: "none",
-        border: "none",
-        cursor: "pointer",
-        color: copied ? "#10b981" : "#475569",
-        padding: "2px",
-        flexShrink: 0,
-        display: "flex",
-      }}
-    >
+      onClick={() => { navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 1500); }}
+      style={{ background: "none", border: "none", cursor: "pointer", color: copied ? "#10b981" : "#475569", padding: "2px", flexShrink: 0, display: "flex" }}>
       {copied ? <CheckCircle2 size={13} /> : <Copy size={13} />}
     </button>
   );
 }
 
 export default function Dashboard() {
+  const { lang } = useLang();
   const {
     address,
     signer,
@@ -71,6 +54,13 @@ export default function Dashboard() {
     disconnect,
     switchToHashKey,
   } = useWallet();
+
+  const NAV = [
+    { id: "dashboard", label: t("overview", lang), icon: LayoutDashboard, path: "/app" },
+    { id: "merchant", label: t("merchant", lang), icon: Store, path: "/app/merchant" },
+    { id: "customer", label: t("customer", lang), icon: Users, path: "/app/customer" },
+    { id: "ai", label: t("aiTools", lang), icon: Brain, path: "/app/ai" },
+  ];
 
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -105,13 +95,13 @@ export default function Dashboard() {
 
   const pageTitle =
     location.pathname === "/app"
-      ? "Overview"
+      ? t("overview", lang)
       : location.pathname.includes("merchant")
-        ? "Merchant"
+        ? t("merchant", lang)
         : location.pathname.includes("customer")
-          ? "Customer"
+          ? t("customer", lang)
           : location.pathname.includes("ai")
-            ? "AI Tools"
+            ? t("aiTools", lang)
             : "AurionPay";
 
   return (
@@ -234,7 +224,6 @@ export default function Dashboard() {
         >
           <div className="sidebar-logo">
             <div className="logo-mark">
-              {/* Logo image  place logo.png in src/assets/ and import at top if available */}
               <Shield size={15} color="#fff" />
             </div>
             {!collapsed && <span className="logo-text">AurionPay</span>}
@@ -289,7 +278,7 @@ export default function Dashboard() {
                       letterSpacing: "0.07em",
                     }}
                   >
-                    CONNECTED
+                    {t("connected", lang).toUpperCase()}
                   </span>
                 </div>
                 <div
@@ -326,15 +315,14 @@ export default function Dashboard() {
           {address && !isCorrectChain && (
             <div className="wrong-chain-banner">
               <span>
-                Wrong network please switch to HashKey Chain Testnet (Chain ID
-                133)
+                {t("wrongChain", lang)}
               </span>
               <button
                 className="btn-secondary"
                 style={{ fontSize: "11px", padding: "4px 12px" }}
                 onClick={switchToHashKey}
               >
-                Switch Network
+                {t("switchNet", lang)}
               </button>
             </div>
           )}
@@ -348,7 +336,7 @@ export default function Dashboard() {
                 <Menu size={18} />
               </button>
               <span className="page-title">{pageTitle}</span>
-              <span className="network-badge">HashKey Testnet</span>
+              <span className="network-badge">{t("network", lang)}</span>
             </div>
             <div className="topbar-right">
               <LangToggle />
@@ -366,12 +354,12 @@ export default function Dashboard() {
                       className="pulse-dot"
                       style={{ width: "6px", height: "6px" }}
                     />
-                    Connected
+                    {t("connected", lang)}
                   </button>
                 </>
               ) : (
                 <button className="btn-connect off" onClick={connect}>
-                  <Wallet size={14} /> Connect Wallet
+                  <Wallet size={14} /> {t("connect", lang)}
                 </button>
               )}
             </div>

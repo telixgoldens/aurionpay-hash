@@ -1,11 +1,13 @@
 import { Shield, Hash, Boxes, Network } from 'lucide-react';
+import { tl } from '../../lib/landingTranslation';
 
-export function TrustBar() {
+export function TrustBar({ lang }) {
   const badges = [
-    { icon: Network, label: 'Built on Hashkey-testnet' },
-    { icon: Shield, label: 'Groth16 Verified' },
-    { icon: Hash, label: 'Poseidon Hash' },
-    { icon: Boxes, label: 'EVM Compatibility' },
+    { icon: Network, label: tl('trust1', lang) },
+    { icon: Shield, label: tl('trust2', lang) },
+    { icon: Hash, label: tl('trust3', lang) },
+    { icon: Boxes, label: tl('trust4', lang) },
+    { icon: Network, label: tl('trust5', lang) },
   ];
 
   return (
@@ -13,7 +15,7 @@ export function TrustBar() {
       <div className="max-w-[1440px] mx-auto px-16">
         <div className="text-center mb-12">
           <p className="text-sm text-gray-500 uppercase tracking-wider">
-            Trusted Infrastructure
+            {tl("trustTitle", lang)}
           </p>
         </div>
         <div className="grid grid-cols-4 gap-8">

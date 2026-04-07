@@ -2,6 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Wallet, FileText, Lock, Shield, Activity, ExternalLink, Store, Users } from "lucide-react";
 import { ADDRESSES, SUPPORTED_TOKENS, EXPLORER, RELAYER_URL, PAYMENT_GATEWAY_ABI, ERC20_ABI } from "./Dashboard.jsx";
+import { useLang } from "../../lib/LanguageContext.jsx";
+import { t } from "../../lib/i18n.js";
 
 function StatCard({ title, value, sub, accent, icon: Icon }) {
   return (
@@ -18,28 +20,29 @@ function StatCard({ title, value, sub, accent, icon: Icon }) {
 
 export default function Overview({ txLog, address }) {
   const navigate = useNavigate();
+  const { lang } = useLang();
 
   return (
     <div className="fade-in">
       <div className="stats-grid">
-        <StatCard title="Wallet"          value={address ? "Live" : "—"}  sub={address ? `${address.slice(0,10)}...` : "Not connected"} accent="var(--green)"   icon={Wallet}   />
-        <StatCard title="Invoices"        value={txLog.filter(t => t.label === "Invoice created").length}  sub="This session"    accent="var(--accent)"  icon={FileText} />
-        <StatCard title="Private Payments" value={txLog.filter(t => t.label === "Private payment").length} sub="Nullifiers spent" accent="var(--accent2)" icon={Lock}     />
-        <StatCard title="Commitments"     value={txLog.filter(t => t.label === "Privacy deposit").length}  sub="Deposits logged" accent="var(--accent3)" icon={Shield}   />
+        <StatCard title={t('wallet', lang)}          value={address ? t('live', lang) : "—"}  sub={address ? `${address.slice(0,10)}...` : t('notConnected', lang)} accent="var(--green)"   icon={Wallet}   />
+        <StatCard title={t('invoices', lang)}        value={txLog.filter(t => t.label === "Invoice created").length}  sub={t('thisSession', lang)}    accent="var(--accent)"  icon={FileText} />
+        <StatCard title={t('privatePayments', lang)} value={txLog.filter(t => t.label === "Private payment").length} sub={t('nullifiersSpent', lang)} accent="var(--accent2)" icon={Lock}     />
+        <StatCard title={t('commitments', lang)}     value={txLog.filter(t => t.label === "Privacy deposit").length}  sub={t('depositsLogged', lang)} accent="var(--accent3)" icon={Shield}   />
       </div>
       <div className="two-col" style={{ marginBottom: "14px" }}>
         <div className="card">
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "14px" }}>
-            <div className="card-title" style={{ marginBottom: 0 }}>Privacy Pool</div>
+            <div className="card-title" style={{ marginBottom: 0 }}>{t('privacyPool', lang)}</div>
             <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
               <div className="pulse-dot" />
-              <span style={{ fontSize: "11px", color: "var(--green)", fontWeight: 700 }}>Active</span>
+              <span style={{ fontSize: "11px", color: "var(--green)", fontWeight: 700 }}>{t('active', lang)}</span>
             </div>
           </div>
           {[
-            { label: "Pool",    value: `${ADDRESSES.privacyPool.slice(0,8)}...${ADDRESSES.privacyPool.slice(-6)}` },
-            { label: "Gateway", value: `...${ADDRESSES.paymentGateway.slice(-6)}` },
-            { label: "Network", value: "Hashkey Testnet" },
+            { label: t('pool', lang),    value: `${ADDRESSES.privacyPool.slice(0,8)}...${ADDRESSES.privacyPool.slice(-6)}` },
+            { label: t('gateway', lang), value: `...${ADDRESSES.paymentGateway.slice(-6)}` },
+            { label: "Network", value: t('network', lang) },
           ].map(({ label, value }) => (
             <div key={label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "6px 0", borderBottom: "1px solid rgba(99,102,241,0.07)" }}>
               <span style={{ fontSize: "12px", color: "var(--text-dim)" }}>{label}</span>
@@ -49,14 +52,14 @@ export default function Overview({ txLog, address }) {
           <div className="pool-bar" style={{ marginTop: "14px" }}>
             <div className="pool-fill" style={{ width: `${Math.min(txLog.filter(t => t.label === "Privacy deposit").length * 20 + 10, 95)}%` }} />
           </div>
-          <div style={{ fontSize: "11px", color: "var(--text-dim)", marginTop: "6px" }}>Anonymity set growing</div>
+          <div style={{ fontSize: "11px", color: "var(--text-dim)", marginTop: "6px" }}>{t('anonymitySetGrowing', lang)}</div>
         </div>
         <div className="card">
-          <div className="card-title">Recent Activity</div>
+          <div className="card-title">{t('recentActivity', lang)}</div>
           {txLog.length === 0 ? (
             <div style={{ textAlign: "center", padding: "28px 0", color: "var(--text-dim)", fontSize: "12px" }}>
               <Activity size={24} style={{ margin: "0 auto 8px", display: "block", opacity: 0.25 }} />
-              No transactions yet
+              {t('noTransactionsYet', lang)}
             </div>
           ) : txLog.slice(0, 6).map((entry, i) => (
             <div key={i} className="activity-row">
@@ -83,19 +86,19 @@ export default function Overview({ txLog, address }) {
         </div>
       </div>
       <div className="card">
-        <div className="card-title">Quick Start</div>
+        <div className="card-title">{t('quickStart', lang)}</div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginTop: "6px" }}>
           <button className="btn-secondary" style={{ padding: "14px", flexDirection: "column", gap: "8px", height: "auto" }}
             onClick={() => navigate("/app/merchant")}>
             <Store size={20} color="var(--accent)" />
-            <span style={{ fontSize: "13px", fontWeight: 700 }}>Merchant Flow</span>
-            <span style={{ fontSize: "11px", color: "var(--text-dim)", fontWeight: 400 }}>Create invoice · Generate QR · Receive payment</span>
+            <span style={{ fontSize: "13px", fontWeight: 700 }}>{t('merchantFlow', lang)}</span>
+            <span style={{ fontSize: "11px", color: "var(--text-dim)", fontWeight: 400 }}>{t('createInvoiceGenerateQRReceivePayment', lang)}</span>
           </button>
           <button className="btn-secondary" style={{ padding: "14px", flexDirection: "column", gap: "8px", height: "auto" }}
             onClick={() => navigate("/app/customer")}>
             <Users size={20} color="var(--accent2)" />
-            <span style={{ fontSize: "13px", fontWeight: 700 }}>Customer Flow</span>
-            <span style={{ fontSize: "11px", color: "var(--text-dim)", fontWeight: 400 }}>Scan QR · Deposit · Pay privately</span>
+            <span style={{ fontSize: "13px", fontWeight: 700 }}>{t('customerFlow', lang)}</span>
+            <span style={{ fontSize: "11px", color: "var(--text-dim)", fontWeight: 400 }}>{t('scanQRPayPrivately', lang)}</span>
           </button>
         </div>
       </div>

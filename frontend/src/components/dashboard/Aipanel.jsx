@@ -130,7 +130,7 @@ function InvoiceAssistant({ lang }) {
         body: JSON.stringify({ description }),
       });
       const data = await res.json();
-      if (data.error) throw new Error(data.error);
+      if (data.error) throw new Error(data.error); 
       if (typeof data.amount !== "number") throw new Error(lang === "zh" ? "AI " : "AI could not parse the description, please try again");
       setResult(data);
     } catch (err) { setError(err.message); }
@@ -278,7 +278,6 @@ export default function AIPanel({ address }) {
           {t("live", lang)}
         </div>
       </div>
-
       <div style={{ display: "flex", gap: "6px", marginBottom: "18px", background: "rgba(99,102,241,0.05)", padding: "5px", borderRadius: "12px", border: "1px solid var(--border)" }}>
         {TABS.map(({ id, label, icon: Icon, color }) => (
           <button key={id} onClick={() => setActiveTab(id)}
@@ -291,7 +290,6 @@ export default function AIPanel({ address }) {
           </button>
         ))}
       </div>
-
       <div className="card">
         {activeTab === "anomaly"   && <AnomalyChecker address={address} lang={lang} />}
         {activeTab === "invoice"   && <InvoiceAssistant lang={lang} />}

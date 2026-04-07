@@ -1,27 +1,28 @@
 import { Shield, Lock, Eye, CheckCircle } from 'lucide-react';
 import Bgsafe from "../../assets/Saveback.png";
+import { tl } from '../../lib/landingTranslation';
 
-export function Security() {
+export function Security({ lang }) {
   const securityFeatures = [
     {
       icon: Shield,
-      title: 'Groth16 Proofs',
-      description: 'Industry-standard zero-knowledge proof system with formal verification and battle-tested security.',
+      title: tl('sec1', lang),
+      description: tl('sec1d', lang),
     },
     {
       icon: Lock,
-      title: 'Poseidon Merkle Trees',
-      description: 'Optimized hash function designed for ZK circuits, ensuring efficient and secure privacy pools.',
+      title: tl('sec2', lang),
+      description: tl('sec2d', lang),
     },
     {
       icon: Eye,
-      title: 'Nullifier Protection',
-      description: 'Prevents double-spending and replay attacks while maintaining complete transaction privacy.',
+      title: tl('sec3', lang),
+      description: tl('sec3d', lang),
     },
     {
       icon: CheckCircle,
-      title: 'No Linkability',
-      description: 'Mathematical guarantee that payer and payee cannot be linked onchain by any observer.',
+      title: tl('sec4', lang),
+      description: tl('sec4d', lang),
     },
   ];
 
@@ -32,17 +33,13 @@ export function Security() {
         <div className="text-center mb-20">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20 text-sm text-green-300 mb-6">
             <Shield className="w-4 h-4" />
-            Enterprise Security
+            {tl('secBadgeLabel', lang)}
           </div> 
           <h2 className="text-5xl font-bold mb-6">
-            Zero-Knowledge
-            <br />
-            <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
-              Verified
-            </span>
+            {tl('secTitle', lang)}
           </h2> 
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Military-grade privacy powered by cutting-edge cryptography and formal verification
+            {tl('secSub', lang)}
           </p>
         </div>
         <div className="grid grid-cols-2 gap-20 items-center mb-20">
@@ -84,37 +81,37 @@ export function Security() {
                     </div>
                     <div className="p-6 rounded-xl bg-black/60 backdrop-blur-md border border-white/10">
                       <div className="text-4xl font-bold text-green-400">100%</div>
-                      <div className="text-sm text-gray-300">Private Transactions</div>
+                      <div className="text-sm text-gray-300">{tl('secPrivateTx', lang)}</div>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="absolute -top-6 -left-6 p-4 rounded-xl bg-gradient-to-br from-green-600 to-green-700 border border-green-500/30 shadow-2xl">
-                <div className="text-sm text-green-100 mb-1">Audit</div>
-                <div className="font-bold">Coming soon</div>
+                <div className="text-sm text-green-100 mb-1">{tl('secAuditLabel', lang)}</div>
+                <div className="font-bold">{tl('secAuditValue', lang)}</div>
               </div>
               <div className="absolute -bottom-6 -right-6 p-4 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 border border-blue-500/30 shadow-2xl">
-                <div className="text-sm text-blue-100 mb-1">Bug Bounty</div>
-                <div className="font-bold">To be announced</div>
+                <div className="text-sm text-blue-100 mb-1">{tl('secBountyLabel', lang)}</div>
+                <div className="font-bold">{tl('secBountyValue', lang)}</div>
               </div>
             </div>
           </div>
         </div>
         <div className="grid grid-cols-3 gap-8">
           <div className="p-8 rounded-2xl bg-gradient-to-br from-green-900/20 to-green-900/10 border border-green-500/20">
-            <div className="text-sm text-green-300 mb-2">Proof Generation</div>
+            <div className="text-sm text-green-300 mb-2">{tl('secStat1Label', lang)}</div>
             <div className="text-3xl font-bold mb-2">~2s</div>
-            <div className="text-sm text-gray-400">Average time for Groth16 proof</div>
+            <div className="text-sm text-gray-400">{tl('secStat1Desc', lang)}</div>
           </div>
           <div className="p-8 rounded-2xl bg-gradient-to-br from-blue-900/20 to-blue-900/10 border border-blue-500/20">
-            <div className="text-sm text-blue-300 mb-2">Verification</div>
+            <div className="text-sm text-blue-300 mb-2">{tl('secStat2Label', lang)}</div>
             <div className="text-3xl font-bold mb-2">&lt;100ms</div>
-            <div className="text-sm text-gray-400">Onchain proof verification time</div>
+            <div className="text-sm text-gray-400">{tl('secStat2Desc', lang)}</div>
           </div>
           <div className="p-8 rounded-2xl bg-gradient-to-br from-purple-900/20 to-purple-900/10 border border-purple-500/20">
-            <div className="text-sm text-purple-300 mb-2">Privacy Set Size</div>
+            <div className="text-sm text-purple-300 mb-2">{tl('secStat3Label', lang)}</div>
             <div className="text-3xl font-bold mb-2">Unlimited</div>
-            <div className="text-sm text-gray-400">Anonymity set grows with usage</div>
+            <div className="text-sm text-gray-400">{tl('secStat3Desc', lang)}</div>
           </div>
         </div>
       </div>

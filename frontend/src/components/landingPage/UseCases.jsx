@@ -1,29 +1,30 @@
 import { ShoppingCart, Users, RefreshCw, Briefcase } from 'lucide-react';
+import { tl } from '../../lib/landingTranslation';
 
-export function UseCases() {
+export function UseCases({ lang }) {
   const useCases = [
     {
       icon: ShoppingCart,
-      title: 'E-commerce',
-      description: 'Accept private payments for online stores while maintaining customer privacy and regulatory compliance.',
+      title: tl('usecase1', lang),
+      description: tl('usecase1d', lang),
       color: 'purple',
     },
     {
       icon: Users,
-      title: 'DAO Treasury Payments',
-      description: 'Enable private contributor payments and grants while maintaining transparency where needed.',
+      title: tl('usecase2', lang),
+      description: tl('usecase2d', lang),
       color: 'blue',
     },
     {
       icon: RefreshCw,
-      title: 'Subscription Services',
-      description: 'Recurring private payments for SaaS, memberships, and subscription-based business models.',
+      title: tl('usecase3', lang),
+      description: tl('usecase3d', lang),
       color: 'green',
     },
     {
       icon: Briefcase,
-      title: 'Onchain Payroll',
-      description: 'Pay remote teams in crypto privately, with automatic currency conversion and compliance tools.',
+      title: tl('usecase4', lang),
+      description: tl('usecase4d', lang),
       color: 'orange',
     },
   ];
@@ -66,9 +67,9 @@ export function UseCases() {
     <section className="relative py-32">
       <div className="max-w-[1440px] mx-auto px-16">
         <div className="text-center mb-20">
-          <h2 className="text-5xl font-bold mb-6">Built for Every Use Case</h2>
+          <h2 className="text-5xl font-bold mb-6">{tl('usecasesTitle', lang)}</h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            From startups to enterprises, AurionPay powers private payments across industries
+            {tl('usecasesSub', lang)}
           </p>
         </div>
         <div className="grid grid-cols-2 gap-8">
@@ -107,12 +108,12 @@ export function UseCases() {
           })}
         </div>
         <div className="mt-16 p-12 rounded-2xl bg-gradient-to-r from-purple-900/20 via-blue-900/20 to-purple-900/20 border border-white/10 text-center">
-          <h3 className="text-3xl font-bold mb-4">Have a custom use case?</h3>
+          <h3 className="text-3xl font-bold mb-4">{tl('usecaseCustomTitle', lang)}</h3>
           <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
-            Our team can help you design a privacy solution tailored to your specific needs.
+            {tl('usecaseCustomDesc', lang)}
           </p>
           <button className="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl font-medium hover:bg-white/20 transition-all duration-300">
-            Contact Sales
+            {tl('usecaseContactBtn', lang)}
           </button>
         </div>
       </div>

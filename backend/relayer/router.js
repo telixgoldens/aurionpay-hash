@@ -44,16 +44,6 @@ function createRelayerRouter() {
     try {
       console.log(`Processing withdrawal  Invoice: ${invoiceIdHex}`);
 
-      // Validate and normalize proof structure
-      console.log("Raw proof received:", {
-        proof_keys: proof ? Object.keys(proof) : "null",
-        has_pi_a: !!proof?.pi_a,
-        has_pi_b: !!proof?.pi_b,
-        has_pi_c: !!proof?.pi_c,
-        pi_a_type: typeof proof?.pi_a,
-        pi_b_type: typeof proof?.pi_b,
-        pi_c_type: typeof proof?.pi_c,
-      });
 
       const normalizedProof = proof;
       const normalizedSignals = publicSignals;
@@ -107,17 +97,6 @@ function createRelayerRouter() {
       const nullifierBytes = ethers.zeroPadValue("0x" + nullifierHex, 32);
       const invoiceBytes = ethers.zeroPadValue("0x" + invoiceIdHex, 32);
 
-      console.log("Proof structure:", {
-        pi_a: normalizedProof.pi_a,
-        pi_b: normalizedProof.pi_b,
-        pi_c: normalizedProof.pi_c,
-        pi_a_length: normalizedProof.pi_a?.length,
-        pi_b_structure: normalizedProof.pi_b ? `${normalizedProof.pi_b.length}x${Array.isArray(normalizedProof.pi_b[0]) ? normalizedProof.pi_b[0].length : '?'}` : "undefined",
-        pi_c_length: normalizedProof.pi_c?.length,
-        publicSignals_length: normalizedSignals?.length,
-      });
-
-      // Parse proof components
       if (!normalizedProof.pi_a || normalizedProof.pi_a.length < 2) {
         return res.status(400).json({ error: "Invalid proof: pi_a must have at least 2 elements" });
       }

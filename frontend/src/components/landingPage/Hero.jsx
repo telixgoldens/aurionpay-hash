@@ -2,8 +2,9 @@ import { ArrowRight, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import Groth16img from "../../assets/groth16.png";
 import { FloatingNodes } from "./FloatingNodes";
+import { tl } from '../../lib/landingTranslation';
 
-export function Hero() {
+export function Hero({ lang }) {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#0f1729] via-[#0a0a0f] to-[#0a0a0f]">
@@ -15,24 +16,24 @@ export function Hero() {
           <div className="space-y-6 md:space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 text-sm text-purple-300">
               <span className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" />
-              Now live on Hashkey testnet
+              {tl("heroBadge", lang)}
             </div>
             <h1 className="text-4xl md:text-7xl font-bold leading-tight tracking-tight">
-              Private Payments.
+              {tl("heroTitle1", lang)}
               <br />
               <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Built for Hashkey.
+                {tl("heroTitle2", lang)}
               </span>
             </h1>
             <p className="text-lg md:text-xl text-gray-400 leading-relaxed max-w-[540px]">
-              Accept WHSK and stablecoins privately using zero-knowledge infrastructure on Hashkey-testnet.
+              {tl("heroSub", lang)}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link
                 to="/app"
                 className="group px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl font-medium hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 flex items-center justify-center gap-2"
               >
-                Start Building
+                {tl("heroCTA", lang)}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <a
@@ -40,21 +41,21 @@ export function Hero() {
                 className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl font-medium hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <Play className="w-4 h-4" />
-                View Documentation
+                {tl("heroSecondary", lang)}
               </a>
             </div>
             <div className="flex flex-wrap gap-8 md:gap-12 pt-6 md:pt-8">
               <div>
-                <div className="text-2xl md:text-3xl font-bold">$'''</div>
-                <div className="text-sm text-gray-500">Volume Processed</div>
+                <div className="text-2xl md:text-3xl font-bold">{tl("heroStat1", lang)}</div>
+                <div className="text-sm text-gray-500">{tl("heroStat1sub", lang)}</div>
               </div>
               <div>
-                <div className="text-2xl md:text-3xl font-bold">100%</div>
-                <div className="text-sm text-gray-500">Private</div>
+                <div className="text-2xl md:text-3xl font-bold">{tl("heroStat2", lang)}</div>
+                <div className="text-sm text-gray-500">{tl("heroStat2sub", lang)}</div>
               </div>
               <div>
-                <div className="text-2xl md:text-3xl font-bold">&lt;5s</div>
-                <div className="text-sm text-gray-500">Avg Confirmation</div>
+                <div className="text-2xl md:text-3xl font-bold">{tl("heroStat3", lang)}</div>
+                <div className="text-sm text-gray-500">{tl("heroStat3sub", lang)}</div>
               </div>
             </div>
           </div>

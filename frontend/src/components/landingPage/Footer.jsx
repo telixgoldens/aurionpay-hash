@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Github, Twitter, MessageCircle, Mail, ExternalLink } from 'lucide-react';
 import Logoimg from "../../assets/logo.png"
+import { tl } from '../../lib/landingTranslation';
 
-export function Footer() {
+export function Footer({ lang }) {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const handleSubscribe = (e) => {
@@ -16,13 +17,13 @@ export function Footer() {
 
   const footerLinks = {
     resources: {
-      title: 'Resources',
+      title: tl('footerLinks', lang),
       links: [
-        { label: 'Documentation', href: '#', external: true },
-        { label: 'API Reference', href: '#', external: true },
-        { label: 'SDK & Tools', href: '#' },
-        { label: 'GitHub', href: 'https://github.com/aurionpay', external: true },
-        { label: 'Status Page', href: '#', external: true },
+        { label: tl('footerDocs', lang), href: '#', external: true },
+        { label: tl('footerApiRef', lang), href: '#', external: true },
+        { label: tl('footerSdkTools', lang), href: '#' },
+        { label: tl('footerGithub', lang), href: 'https://github.com/aurionpay-hash', external: true },
+        { label: tl('footerStatus', lang), href: '#', external: true },
       ],
     },
   };
@@ -40,18 +41,18 @@ export function Footer() {
                 <span className="text-2xl font-bold">AurionPay</span>
               </div>
               <p className="text-gray-400 leading-relaxed">
-                Private payment infrastructure built on Hashkey testnet. Accept WHSK and stablecoins with zero-knowledge privacy.
+                {tl('footerDesc', lang)}
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Stay Updated</h4>
+              <h4 className="font-semibold mb-4">{tl('footerStayUpdated', lang)}</h4>
               <form onSubmit={handleSubscribe} className="space-y-3">
                 <div className="relative">
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
+                    placeholder={tl('footerEmailPlaceholder', lang)}
                     className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-all"
                     required
                   />
@@ -62,7 +63,7 @@ export function Footer() {
                   className="w-full px-4 py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl font-medium hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 disabled:opacity-50"
                   disabled={subscribed}
                 >
-                  {subscribed ? 'Subscribed! ✓' : 'Subscribe'}
+                  {subscribed ? tl('footerSubscribed', lang) : tl('footerSubscribe', lang)}
                 </button>
               </form>
             </div>
@@ -113,15 +114,15 @@ export function Footer() {
         </div>
         <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex flex-wrap items-center gap-6 text-sm text-gray-500">
-            <span>© 2026 AurionPay. All rights reserved.</span>
+            <span>{tl('footerRights', lang)}</span>
             <a href="#" className="hover:text-white transition-colors">
-              Privacy Policy
+              {tl('footerPrivacyPolicy', lang)}
             </a>
             <a href="#" className="hover:text-white transition-colors">
-              Terms of Service
+              {tl('footerTermsOfService', lang)}
             </a>
             <a href="#" className="hover:text-white transition-colors">
-              Cookie Policy
+              {tl('footerCookiePolicy', lang)}
             </a>
           </div>
         </div>

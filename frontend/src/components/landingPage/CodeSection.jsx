@@ -1,7 +1,8 @@
 import { Terminal, Copy, Check } from 'lucide-react';
 import { useState } from 'react';
+import { tl } from '../../lib/landingTranslation';
 
-export function CodeSection() {
+export function CodeSection({ lang }) {
   const [copied, setCopied] = useState(false);
   const codeExample = `// Install the SDK
 npm install @aurionpay/sdk
@@ -48,17 +49,13 @@ await aurionPay.withdraw({
           <div className="space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20 text-sm text-green-300">
               <Terminal className="w-4 h-4" />
-              Developer Experience
+              {tl('codeTitle', lang)}
             </div>
             <h2 className="text-5xl font-bold leading-tight">
-              Deploy in
-              <br />
-              <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
-                Minutes
-              </span>
+              {tl('codeSub', lang)}
             </h2>
             <p className="text-xl text-gray-400 leading-relaxed">
-              Simple, intuitive SDK that abstracts away the complexity of zero-knowledge cryptography. Focus on building your product, not crypto infrastructure.
+              {tl('codeSub', lang)}
             </p>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
