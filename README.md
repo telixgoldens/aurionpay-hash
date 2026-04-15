@@ -11,7 +11,7 @@ AurionPay enables merchants to receive stablecoin payments (USDC, USDT, WHSK) wh
 | Service | URL |
 |---|---|
 | Frontend | https://aurionpay-hash.vercel.app |
-| Backend/Relayer | https://aurionpay-hash.onrender.com |
+| Backend/Relayer | https://backend-pay-production.up.railway.app |
 | Network | HashKey Chain Testnet (Chain ID 133) |
 | Explorer | https://testnet-explorer.hsk.xyz |
 
@@ -125,7 +125,7 @@ HSP_APP_KEY=...
 HSP_APP_SECRET=...
 HSP_MERCHANT_NAME=AurionPay
 HSP_BASE_URL=https://merchant-qa.hashkeymerchant.com
-RENDER_EXTERNAL_URL=https://aurionpay-hash.onrender.com
+RAILWAY_EXTERNAL_URL=https://backend-pay-production.up.railway.app
 ```
 
 **Frontend**  create `frontend/.env.local`:
