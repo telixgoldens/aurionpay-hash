@@ -69,15 +69,15 @@ export function FeatureGrid({ lang }) {
         <div className="grid grid-cols-3 gap-8 mt-16">
           <div className="p-8 rounded-2xl bg-gradient-to-br from-purple-900/20 to-purple-900/10 border border-purple-500/20">
             <div className="text-4xl font-bold mb-2">99.9%</div>
-            <div className="text-sm text-purple-300">Uptime SLA</div>
+            <div className="text-sm text-purple-300">{tl('uptimeSla', lang)}</div>
           </div>
           <div className="p-8 rounded-2xl bg-gradient-to-br from-blue-900/20 to-blue-900/10 border border-blue-500/20">
             <div className="text-4xl font-bold mb-2">&lt;100ms</div>
-            <div className="text-sm text-blue-300">API Response Time</div>
+            <div className="text-sm text-blue-300">{tl('apiResponseTime', lang)}</div>
           </div>
           <div className="p-8 rounded-2xl bg-gradient-to-br from-green-900/20 to-green-900/10 border border-green-500/20">
             <div className="text-4xl font-bold mb-2">24/7</div>
-            <div className="text-sm text-green-300">Developer Support</div>
+            <div className="text-sm text-green-300">{tl('developerSupport', lang)}</div>
           </div>
         </div>
       </div>

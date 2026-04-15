@@ -78,9 +78,8 @@ export function Hero({ lang }) {
               </div>
             </div>
             <div className="absolute -top-8 -right-8 p-6 bg-gradient-to-br from-purple-600/90 to-blue-600/90 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl">
-              <div className="text-sm text-purple-200 mb-2">Network Activity</div>
-              <div className="text-3xl font-bold">147</div>
-              <div className="text-sm text-purple-200">Active Intents</div>
+              <div className="text-sm text-purple-200 mb-2">{tl('networkActivity', lang)}</div>
+              <div className="text-sm text-purple-200">{tl('activeIntents', lang)}</div>
             </div>
           </div>
         </div>

@@ -75,26 +75,41 @@ export default function Customer({ address, signer, addLog }) {
  
   useEffect(() => {
     const params  = new URLSearchParams(window.location.search);
-    const orderId = params.get("orderId");
+    let orderId        = params.get("orderId");
+    const storedOrder  = sessionStorage.getItem("hsp_pending_order");
+    if (!orderId && storedOrder) orderId = storedOrder;
     if (orderId) {
+      window.history.replaceState({}, "", window.location.pathname);
+      sessionStorage.setItem("hsp_pending_order", orderId);
       setMode("hsp");
       setHspOrderId(orderId);
       setHspRedirected(true);
       setStatus({ text: t('returnedFromHspCheckout', lang), type: "pending" });
-      window.history.replaceState({}, "", window.location.pathname);
+    
+       let attempts = 0;
+       const maxAttempts = 20;
       hspPollRef.current = setInterval(async () => {
+        attempts++;
         try {
-          const res  = await fetch(`${BACKEND_URL}/hsp/payment-status?orderId=${orderId}`);
+          const res  = await fetch(`${BACKEND_URL}/hsp/payment-status?orderId=${encodeURIComponent(orderId)}`);
           const data = await res.json();
-          if (data?.status?.status === "PAID" || data?.status?.paid === true) {
+          if (data?.status?.paid === true) {
             setHspConfirmed(true);
             setPaid(true);
             setStatus({ text: t('hspPaymentConfirmed', lang), type: "success" });
             clearInterval(hspPollRef.current);
             addLog("HSP payment confirmed", orderId);
+           return; 
+        } 
+        
+        if (attempts >= maxAttempts) {
+            clearInterval(hspPollRef.current);
+            setStatus({ text: t('paymentVerificationTimedOut', lang), type: "error" });
           }
-        } catch (_) {}
-      }, 4000);
+        } catch (err) {
+          console.warn("[HSP] poll error:", err.message);
+        }
+      }, 3000);
     }
     return () => clearInterval(hspPollRef.current);
   }, [addLog]);
@@ -511,6 +526,27 @@ export default function Customer({ address, signer, addLog }) {
                       <div className="hash-display"><span style={{ flex: 1, fontSize: "11px" }}>{hspOrderId}</span><CopyBtn text={hspOrderId} /></div>
                     </div>
                   )}
+                   <button className="btn-secondary" onClick={async () => {
+                    try {
+                      setStatus({ text: t('checkingPaymentStatus', lang), type: "pending" });
+                      const res  = await fetch(`${BACKEND_URL}/hsp/payment-status?orderId=${encodeURIComponent(hspOrderId)}`);
+                      const data = await res.json();
+                      console.log("[HSP] Manual check:", data);
+                      if (data?.isPaid === true) {
+                        setHspConfirmed(true); setPaid(true);
+                        setStatus({ text: t('paymentConfirmed', lang), type: "success" });
+                        clearInterval(hspPollRef.current);
+                        sessionStorage.removeItem("hsp_pending_order");
+                        addLog("HSP payment confirmed", hspOrderId);
+                      } else {
+                        setStatus({ text: t('notConfirmedYetRaw', lang) + JSON.stringify(data?.raw || data).slice(0, 80), type: "pending" });
+                      }
+                    } catch (err) {
+                      setStatus({ text: t('checkFailed', lang) + err.message, type: "error" });
+                    }
+                  }}>
+                    <RefreshCw size={13} /> {t('checkNowManually', lang)}
+                  </button>
                 </div>
               )}
               {paid && (

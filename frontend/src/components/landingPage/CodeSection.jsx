@@ -60,15 +60,15 @@ await aurionPay.withdraw({
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <div className="w-2 h-2 bg-green-400 rounded-full" />
-                <span className="text-gray-300">TypeScript support with full type safety</span>
+                <span className="text-gray-300">{tl('typeScriptSupport', lang)}</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-2 h-2 bg-blue-400 rounded-full" />
-                <span className="text-gray-300">Automatic ZK proof generation</span>
+                <span className="text-gray-300">{tl('automaticZkProof', lang)}</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-2 h-2 bg-purple-400 rounded-full" />
-                <span className="text-gray-300">React hooks and UI components included</span>
+                <span className="text-gray-300">{tl('reactHooksComponents', lang)}</span>
               </div>
             </div>
             <div className="pt-4">
@@ -76,7 +76,7 @@ await aurionPay.withdraw({
                 href="#"
                 className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 font-medium transition-colors"
               >
-                View Full Documentation
+                {tl('viewFullDocumentation', lang)}
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
