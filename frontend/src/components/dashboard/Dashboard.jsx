@@ -21,6 +21,7 @@ import Merchant from "./Merchant.jsx";
 import Customer from "./Customer.jsx";
 import Overview from "./Overview.jsx";
 import AIPanel from "./Aipanel.jsx";
+import Logoimg from "../../assets/logo.png";
 
 export {
   ADDRESSES,
@@ -31,13 +32,25 @@ export {
   ERC20_ABI,
 } from "../../lib/contracts.js";
 
-
 export function CopyBtn({ text }) {
   const [copied, setCopied] = useState(false);
   return (
     <button
-      onClick={() => { navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 1500); }}
-      style={{ background: "none", border: "none", cursor: "pointer", color: copied ? "#10b981" : "#475569", padding: "2px", flexShrink: 0, display: "flex" }}>
+      onClick={() => {
+        navigator.clipboard.writeText(text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1500);
+      }}
+      style={{
+        background: "none",
+        border: "none",
+        cursor: "pointer",
+        color: copied ? "#10b981" : "#475569",
+        padding: "2px",
+        flexShrink: 0,
+        display: "flex",
+      }}
+    >
       {copied ? <CheckCircle2 size={13} /> : <Copy size={13} />}
     </button>
   );
@@ -56,9 +69,24 @@ export default function Dashboard() {
   } = useWallet();
 
   const NAV = [
-    { id: "dashboard", label: t("overview", lang), icon: LayoutDashboard, path: "/app" },
-    { id: "merchant", label: t("merchant", lang), icon: Store, path: "/app/merchant" },
-    { id: "customer", label: t("customer", lang), icon: Users, path: "/app/customer" },
+    {
+      id: "dashboard",
+      label: t("overview", lang),
+      icon: LayoutDashboard,
+      path: "/app",
+    },
+    {
+      id: "merchant",
+      label: t("merchant", lang),
+      icon: Store,
+      path: "/app/merchant",
+    },
+    {
+      id: "customer",
+      label: t("customer", lang),
+      icon: Users,
+      path: "/app/customer",
+    },
     { id: "ai", label: t("aiTools", lang), icon: Brain, path: "/app/ai" },
   ];
 
@@ -223,8 +251,12 @@ export default function Dashboard() {
           className={`sidebar ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}
         >
           <div className="sidebar-logo">
-            <div className="logo-mark">
-              <Shield size={15} color="#fff" />
+            <div>
+              <img
+                src={Logoimg}
+                alt="AurionPay Logo"
+                className="w-8 h-8 rounded-sm"
+              />
             </div>
             {!collapsed && <span className="logo-text">AurionPay</span>}
             {mobileOpen && (
@@ -314,9 +346,7 @@ export default function Dashboard() {
         >
           {address && !isCorrectChain && (
             <div className="wrong-chain-banner">
-              <span>
-                {t("wrongChain", lang)}
-              </span>
+              <span>{t("wrongChain", lang)}</span>
               <button
                 className="btn-secondary"
                 style={{ fontSize: "11px", padding: "4px 12px" }}
